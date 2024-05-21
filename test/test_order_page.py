@@ -1,16 +1,11 @@
 import allure
 import pytest
-from selenium import webdriver
 from conftest import driver
 from pages.base_page import BasePage
 from pages.order_page import OrderPage
 
 
 class TestOrderPage:
-
-    @classmethod
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
 
     @pytest.mark.parametrize(
         'name, lastname, address, telephone',
@@ -20,10 +15,8 @@ class TestOrderPage:
     )
     @allure.title('Оформление заказа через верхнюю кнопку "Заказать"')
     def test_order_top_button(self, driver, name, lastname, address, telephone):
-        base_page = BasePage(driver)
-        base_page.open_page(self)
         order_page = OrderPage(driver)
-        order_page.click_top_order_button(self)
+        order_page.click_top_order_button()
         order_page.set_name(name)
         order_page.set_lastname(lastname)
         order_page.set_address(address)
@@ -43,10 +36,9 @@ class TestOrderPage:
     @allure.title('Оформление заказа через нижнюю кнопку "Заказать"')
     def test_order_bottom_button(self, driver, name, lastname, address, telephone):
         base_page = BasePage(driver)
-        base_page.open_page(self)
-        base_page.get_cookies(self)
+        base_page.get_cookies()
         order_page = OrderPage(driver)
-        order_page.click_bottom_order_button(self)
+        order_page.click_bottom_order_button()
         order_page.set_name(name)
         order_page.set_lastname(lastname)
         order_page.set_address(address)
@@ -56,7 +48,3 @@ class TestOrderPage:
 
         text = order_page.order_placed_success()
         assert 'Заказ оформлен' in text
-
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()

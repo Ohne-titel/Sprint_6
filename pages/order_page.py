@@ -1,19 +1,18 @@
 import allure
 from locators.order_page_locators import OrderPageLocators
-from pages.base_page import BasePage
 
 
-class OrderPage(BasePage):
+class OrderPage:
 
     def __init__(self, driver):
-        super().__init__(driver)
+        self.driver = driver
 
     @allure.step('Клик на кнопку "Заказать" в шапке ')
-    def click_top_order_button(self, driver):
+    def click_top_order_button(self):
         self.driver.find_element(*OrderPageLocators.top_order_button_selector).click()
 
     @allure.step('Клик на кнопку "Заказать" в середине страницы ')
-    def click_bottom_order_button(self, driver):
+    def click_bottom_order_button(self):
         self.driver.find_element(*OrderPageLocators.bottom_order_button_selector).click()
 
     @allure.step('Ввод имени')

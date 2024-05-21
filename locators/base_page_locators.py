@@ -23,3 +23,4 @@ class BasePageLocators:
 
     yandex_logo = (By.XPATH, "//a[contains(@class, 'Header_LogoYandex')]")  # логотип "Яндекс"
     samokat_logo = (By.XPATH, "//a[contains(@class, 'Header_LogoScooter')]")  # логотип "Самокат"
+    top_order_button_selector = (By.XPATH, "//*[@class='Button_Button__ra12g']")  # верхняя кнопка "Заказать"

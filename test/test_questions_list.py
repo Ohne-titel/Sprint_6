@@ -1,17 +1,11 @@
 import allure
 import pytest
-from selenium import webdriver
 from conftest import driver
 from locators.base_page_locators import BasePageLocators
 from pages.base_page import BasePage
-from pages.main_page import MainPage
 
 
 class TestQuestionsList:
-
-    @classmethod
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
 
     @pytest.mark.parametrize(
         'question, answer, text_answer',
@@ -47,15 +41,9 @@ class TestQuestionsList:
     @allure.title('Проверка соответствия текста ответов на вопросы')
     def test_question_list(self, question, answer, text_answer, driver):
         base_page = BasePage(driver)
-        base_page.open_page(self)
-        base_page.get_cookies(self)
-        main_page = MainPage(driver)
-        main_page.visibility_question_list()
-        main_page.click_question(question)
-        real_answer = main_page.click_answer(answer)
+        base_page.open_page()
+        base_page.get_cookies()
+        base_page.visibility_question_list()
+        base_page.click_question(question)
+        real_answer = base_page.click_answer(answer)
         assert real_answer == text_answer
-
-
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
