@@ -1,7 +1,6 @@
 import allure
 import pytest
 from conftest import driver
-from pages.base_page import BasePage
 from pages.order_page import OrderPage
 
 
@@ -35,9 +34,8 @@ class TestOrderPage:
     )
     @allure.title('Оформление заказа через нижнюю кнопку "Заказать"')
     def test_order_bottom_button(self, driver, name, lastname, address, telephone):
-        base_page = BasePage(driver)
-        base_page.get_cookies()
         order_page = OrderPage(driver)
+        order_page.get_cookie()
         order_page.click_bottom_order_button()
         order_page.set_name(name)
         order_page.set_lastname(lastname)
